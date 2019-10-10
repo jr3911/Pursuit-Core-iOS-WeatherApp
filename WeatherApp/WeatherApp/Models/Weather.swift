@@ -13,22 +13,24 @@ struct Weather: Codable {
     let longitude: Double
     let timezone: String
     let daily: DailyWrapper
-    
-    struct DailyWrapper: Codable {
-        let summary: String
-        let icon: String
-        let data: [DataWrapper]
-        
-        struct DataWrapper: Codable {
-            let time: Int
-            let summary: String
-            let icon: String
-            let sunriseTime: Int
-            let sunsetTime: Int
-            let precipIntensityMax: Double
-            let temperatureHigh: Double
-            let temperatureLow: Double
-            let windSpeed: Double
-        }
-    }
+}
+
+
+struct DailyWrapper: Codable {
+    let summary: String
+    let icon: String
+    let data: [DayForecast]
+}
+
+
+struct DayForecast: Codable {
+    let time: Int
+    let summary: String
+    let icon: String
+    let sunriseTime: Int
+    let sunsetTime: Int
+    let precipIntensityMax: Double
+    let temperatureHigh: Double
+    let temperatureLow: Double
+    let windSpeed: Double
 }
