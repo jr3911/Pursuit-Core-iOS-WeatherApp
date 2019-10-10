@@ -41,6 +41,8 @@ class MainWeatherVC: UIViewController {
     
     lazy var forecastCollectionView: UICollectionView = {
         let cv = UICollectionView()
+        cv.dataSource = self
+        cv.delegate = self
         cv.backgroundColor = .white
         return cv
     }()
@@ -63,8 +65,27 @@ class MainWeatherVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         title = "Search"
+        
+        let nib = UINib(nibName: "WeatherCollectionViewCell", bundle: nil)
+        forecastCollectionView.register(nib, forCellWithReuseIdentifier: "weatherCell")
     }
     
     
 }
 
+extension MainWeatherVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dailyForecast.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "weatherCell", for: indexPath) as! WeatherCollectionViewCell
+        let selectedForecast = dailyForecast[indexPath.row]
+        cell.dateLabel.text = selectedForecast.time.description
+        cell.highLabel.text = "High: \(selectedForecast.temperatureHigh)°F"
+        cell.lowLabel.text = "Low: \(selectedForecast.temperatureLow)°F"
+        return cell
+    }
+    
+    
+}
