@@ -12,7 +12,8 @@ class MainWeatherVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        view.backgroundColor = .white
+        title = "Search"
         // Do any additional setup after loading the view.
     }
     
