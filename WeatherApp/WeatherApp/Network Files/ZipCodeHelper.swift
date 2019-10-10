@@ -30,11 +30,11 @@ class ZipCodeHelper {
     }
 }
 
-ZipCodeHelper.getLatLong(fromZipCode: "60613") { (result) in
-    switch result {
-    case let .success((lat, long)):
-        print(lat, long)
-    case let .failure(error):
-        print(error)
-    }
-}
+//ZipCodeHelper.getLatLong(fromZipCode: "60613") { (result) in
+//    switch result {
+//    case let .success((lat, long)):
+//        print(lat, long)
+//    case let .failure(error):
+//        print(error)
+//    }
+//}
