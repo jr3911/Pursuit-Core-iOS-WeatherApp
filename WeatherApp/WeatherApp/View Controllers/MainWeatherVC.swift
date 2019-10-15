@@ -170,10 +170,15 @@ extension MainWeatherVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "weatherCell", for: indexPath) as! WeatherCollectionViewCell
         let selectedForecast = dailyForecast[indexPath.row]
-        cell.dateLabel.text = selectedForecast.time.description
+        
+        let date = Date(timeIntervalSince1970: TimeInterval(selectedForecast.time))
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateString = dateFormatter.string(from: date)
+        
+        cell.dateLabel.text = dateString
         cell.highLabel.text = "High: \(selectedForecast.temperatureHigh)°F"
         cell.lowLabel.text = "Low: \(selectedForecast.temperatureLow)°F"
-        print(indexPath.row, selectedForecast.icon)
         
         if let iconImage = UIImage(named: selectedForecast.icon) {
             cell.weatherIcon.image = iconImage
@@ -195,5 +200,6 @@ extension MainWeatherVC: UICollectionViewDataSource, UICollectionViewDelegate, U
 extension MainWeatherVC: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchInput = searchBar.text
+        searchBar.resignFirstResponder()
     }
 }
