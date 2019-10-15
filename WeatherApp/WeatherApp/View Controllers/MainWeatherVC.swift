@@ -10,9 +10,14 @@ import UIKit
 
 class MainWeatherVC: UIViewController {
     //MARK: Properties
-    var city: String? {
+    var cityAndForecast: (String, City)? {
         didSet {
-            //TODO
+            if let forecast = self.cityAndForecast?.1.daily.data{
+                dailyForecast = forecast
+            }
+            if let cityName = self.cityAndForecast?.0 {
+                cityLabel.text = "Weather forecast for \(cityName)"
+            }
         }
     }
     
