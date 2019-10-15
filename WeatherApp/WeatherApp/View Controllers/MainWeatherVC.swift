@@ -27,16 +27,16 @@ class MainWeatherVC: UIViewController {
         }
     }
     
-    private var searchInput: Int? {
+    private var searchInput: String? {
         didSet {
-            forecastCollectionView.reloadData()
+            loadForecast()
         }
     }
     
     lazy var cityLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        if let cityName = self.city {
+        if let cityName = self.cityAndForecast?.0 {
             label.text = "Weather forecast for \(cityName)"
         } else {
             label.text = "Enter a zip code for the weather forecast"
@@ -54,7 +54,9 @@ class MainWeatherVC: UIViewController {
     
     lazy var searchBar: UISearchBar = {
         let bar = UISearchBar()
+        bar.delegate = self
         bar.barStyle = .default
+        bar.keyboardType = .default
         return bar
     }()
     
@@ -93,4 +95,11 @@ extension MainWeatherVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     }
     
     
+}
+
+//MARK: SearchBar Delegate
+extension MainWeatherVC: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchInput = searchBar.text
+    }
 }
