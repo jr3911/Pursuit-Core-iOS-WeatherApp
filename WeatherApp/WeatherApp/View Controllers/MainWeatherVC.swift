@@ -81,11 +81,87 @@ class MainWeatherVC: UIViewController {
         
         let nib = UINib(nibName: "WeatherCollectionViewCell", bundle: nil)
         forecastCollectionView.register(nib, forCellWithReuseIdentifier: "weatherCell")
+        
+        loadSubviews()
+        configureSubviewConstraints()
+        
+        loadForecast()
+        
     }
     
     
+    //MARK: Private Functions
+    private func loadSubviews() {
+        view.addSubview(cityLabel)
+        view.addSubview(forecastCollectionView)
+        view.addSubview(searchBar)
+        view.addSubview(enterZipLabel)
+    }
+    
+    private func configureSubviewConstraints() {
+        cityLabelConstraints()
+        forecastCollectionViewConstraints()
+        searchBarConstraints()
+        enterZipLabelConstraints()
+    }
+    
+    private func loadForecast() {
+        if let zipcode = self.searchInput {
+            ForecastAPIClient.manager.getForecast(zipcode: zipcode) { (result) in
+                switch result {
+                case .failure(let error):
+                    print(error)
+                case .success(let cityInfo):
+                    self.cityAndForecast = cityInfo
+                }
+            }
+        }
+    }
+    
+    //MARK: Constraints
+    private func cityLabelConstraints() {
+        cityLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            cityLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            cityLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            cityLabel.widthAnchor.constraint(equalTo: view.widthAnchor),
+            cityLabel.heightAnchor.constraint(equalToConstant: 30)
+        ])
+    }
+    
+    private func forecastCollectionViewConstraints() {
+        forecastCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            forecastCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            forecastCollectionView.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 40),
+            forecastCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            forecastCollectionView.heightAnchor.constraint(equalToConstant: 200)
+        ])
+    }
+    
+    private func searchBarConstraints() {
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            searchBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            searchBar.topAnchor.constraint(equalTo: forecastCollectionView.bottomAnchor, constant: 30),
+            searchBar.widthAnchor.constraint(equalToConstant: view.frame.width / 3),
+            searchBar.heightAnchor.constraint(equalToConstant: 30)
+        ])
+    }
+    
+    private func enterZipLabelConstraints() {
+        enterZipLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            enterZipLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            enterZipLabel.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 25),
+            enterZipLabel.widthAnchor.constraint(equalToConstant: view.frame.width / 3),
+            enterZipLabel.heightAnchor.constraint(equalToConstant: 30)
+        ])
+    }
+    
 }
 
+//MARK: CollectionView Methods
 extension MainWeatherVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dailyForecast.count
