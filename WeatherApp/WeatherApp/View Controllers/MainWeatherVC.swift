@@ -10,12 +10,12 @@ import UIKit
 
 class MainWeatherVC: UIViewController {
     //MARK: Properties
-    var cityAndForecast: (String, City)? {
+    var cityAndForecast: CityAndForecast? {
         didSet {
-            if let forecast = self.cityAndForecast?.1.daily.data{
+            if let forecast = self.cityAndForecast?.cityInfo.daily.data {
                 dailyForecast = forecast
             }
-            if let cityName = self.cityAndForecast?.0 {
+            if let cityName = self.cityAndForecast?.name {
                 cityLabel.text = "Weather forecast for \(cityName)"
             }
         }
@@ -36,7 +36,7 @@ class MainWeatherVC: UIViewController {
     lazy var cityLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        if let cityName = self.cityAndForecast?.0 {
+        if let cityName = self.cityAndForecast?.name {
             label.text = "Weather forecast for \(cityName)"
         } else {
             label.text = "Enter a zip code for the weather forecast"

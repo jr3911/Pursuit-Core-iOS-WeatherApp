@@ -12,7 +12,7 @@ class ForecastAPIClient {
     private init() {}
     static let manager = ForecastAPIClient()
     
-    func getForecast(zipcode: String, completionHandler: @escaping (Result<(String, City), AppError>) -> () ) {
+    func getForecast(zipcode: String, completionHandler: @escaping (Result<CityAndForecast, AppError>) -> () ) {
         ZipCodeHelper.getLatLong(fromZipCode: zipcode) { (result) in
             switch result {
             case .failure(let error):
@@ -31,7 +31,8 @@ class ForecastAPIClient {
                     case .success(let data):
                         do {
                             let cityInfo = try JSONDecoder().decode(City.self, from: data)
-                            completionHandler(.success((cityName, cityInfo)))
+                            let cityAndForecastInfo = CityAndForecast(name: cityName, cityInfo: cityInfo)
+                            completionHandler(.success((cityAndForecastInfo)))
                         } catch let error {
                             completionHandler(.failure(.couldNotParseJSON(rawError: error)))
                         }

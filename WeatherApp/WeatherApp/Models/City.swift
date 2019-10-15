@@ -8,6 +8,11 @@
 
 import Foundation
 
+struct CityAndForecast: Codable {
+    let name: String
+    let cityInfo: City
+}
+
 struct City: Codable {
     let latitude: Double
     let longitude: Double
