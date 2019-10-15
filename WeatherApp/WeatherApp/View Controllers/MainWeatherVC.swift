@@ -45,10 +45,16 @@ class MainWeatherVC: UIViewController {
     }()
     
     lazy var forecastCollectionView: UICollectionView = {
-        let cv = UICollectionView()
+        let layout = UICollectionViewFlowLayout.init()
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: 200, height: 200)
+        
+        let cv = UICollectionView(frame: CGRect(origin: CGPoint(x: 0, y: 200), size: CGSize(width: self.view.frame.width, height: 200)), collectionViewLayout: layout)
+        
         cv.dataSource = self
         cv.delegate = self
         cv.backgroundColor = .white
+        
         return cv
     }()
     
@@ -91,6 +97,18 @@ extension MainWeatherVC: UICollectionViewDataSource, UICollectionViewDelegate, U
         cell.dateLabel.text = selectedForecast.time.description
         cell.highLabel.text = "High: \(selectedForecast.temperatureHigh)°F"
         cell.lowLabel.text = "Low: \(selectedForecast.temperatureLow)°F"
+        print(indexPath.row, selectedForecast.icon)
+        
+        if let iconImage = UIImage(named: selectedForecast.icon) {
+            cell.weatherIcon.image = iconImage
+        } else if selectedForecast.icon == "partly-cloudy-day" {
+            cell.weatherIcon.image = UIImage(named: "pcloudy")
+        } else if selectedForecast.icon == "clear-day" {
+            cell.weatherIcon.image = UIImage(named: "clear")
+        } else {
+            cell.weatherIcon.image = UIImage(named: "pcloudy")
+        }
+        
         return cell
     }
     
