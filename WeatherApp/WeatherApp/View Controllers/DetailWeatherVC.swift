@@ -37,12 +37,20 @@ class DetailWeatherVC: UIViewController {
     //MARK: LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveCityImage))
         view.backgroundColor = .white
         setUpViews()
         configureConstraints()
     }
     
     //MARK: Private Functions
+    @objc func saveCityImage() {
+        let alert = UIAlertController(title: "Saved", message: "Image saved to Favorites", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true)
+    }
+    
+    //MARK: AddSubviews and Constraints
     private func setUpViews() {
         setLabel()
         setImage()
@@ -155,5 +163,7 @@ class DetailWeatherVC: UIViewController {
             weatherDetailsTextView.widthAnchor.constraint(equalTo: weatherIconImageView.heightAnchor)
         ])
     }
+    
+    
     
 }
