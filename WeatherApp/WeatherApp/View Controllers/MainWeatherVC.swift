@@ -10,6 +10,8 @@ import UIKit
 
 class MainWeatherVC: UIViewController {
     //MARK: Properties
+    let defaults = UserDefaults.standard
+    
     var cityAndForecast: CityAndForecast? {
         didSet {
             if let forecast = self.cityAndForecast?.cityInfo.daily.data {
@@ -81,9 +83,11 @@ class MainWeatherVC: UIViewController {
         
         let nib = UINib(nibName: "WeatherCollectionViewCell", bundle: nil)
         forecastCollectionView.register(nib, forCellWithReuseIdentifier: "weatherCell")
-        
+    
         loadSubviews()
         configureSubviewConstraints()
+        
+        loadDefaultZipcode()
         
         loadForecast()
         
@@ -91,6 +95,13 @@ class MainWeatherVC: UIViewController {
     
     
     //MARK: Private Functions
+    private func loadDefaultZipcode() {
+        if let zipcode = defaults.object(forKey: "Zipcode") as? String {
+            searchInput = zipcode
+            searchBar.text = zipcode
+        }
+    }
+    
     private func loadSubviews() {
         view.addSubview(cityLabel)
         view.addSubview(forecastCollectionView)
@@ -113,6 +124,7 @@ class MainWeatherVC: UIViewController {
                     print(error)
                 case .success(let cityInfo):
                     self.cityAndForecast = cityInfo
+                    self.defaults.set(zipcode, forKey: "Zipcode")
                 }
             }
         }
