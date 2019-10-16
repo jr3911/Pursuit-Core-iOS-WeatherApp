@@ -13,6 +13,20 @@ class DetailWeatherVC: UIViewController {
     var cityName: String!
     var dayForecast: DayForecast!
     var timezone: String!
+    var photo: Photo? {
+        didSet {
+            ImageHelper.shared.getImage(url: self.photo!.largeImageURL) { (result) in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .failure(let error):
+                        print(error)
+                    case .success(let cityImage):
+                        self.weatherIconImageView.image = cityImage
+                    }
+                }
+            }
+        }
+    }
     
     lazy var topLabel: UILabel = {
         let label = UILabel()
@@ -76,6 +90,17 @@ class DetailWeatherVC: UIViewController {
         } else {
             weatherIconImageView.image = UIImage(named: "pcloudy")
         }
+        
+        PhotoHitsAPIClient.manager.getPhotoHits(searchTerm: cityName!) { (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let error):
+                    print(error)
+                case .success(let photoArr):
+                    self.photo = photoArr.randomElement()
+                }
+            }
+        }
     }
     
     private func setTextView() {
@@ -92,7 +117,7 @@ class DetailWeatherVC: UIViewController {
         let sunsetTime = dateFormatter.string(from: sunsetTimeDate)
         
         weatherDetailsTextView.text = """
-                \(dayForecast.summary)
+        \(dayForecast.summary)
         
         High: \(Int(dayForecast.temperatureHigh))°F
         Low: \(Int(dayForecast.temperatureLow))°F
