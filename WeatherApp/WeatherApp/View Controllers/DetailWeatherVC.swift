@@ -13,20 +13,7 @@ class DetailWeatherVC: UIViewController {
     var cityName: String!
     var dayForecast: DayForecast!
     var timezone: String!
-    var photo: Photo? {
-        didSet {
-            ImageHelper.shared.getImage(url: self.photo!.largeImageURL) { (result) in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .failure(let error):
-                        print(error)
-                    case .success(let cityImage):
-                        self.weatherIconImageView.image = cityImage
-                    }
-                }
-            }
-        }
-    }
+    var cityImage: UIImage?
     
     lazy var topLabel: UILabel = {
         let label = UILabel()
@@ -97,7 +84,18 @@ class DetailWeatherVC: UIViewController {
                 case .failure(let error):
                     print(error)
                 case .success(let photoArr):
-                    self.photo = photoArr.randomElement()
+                    let imageURL = photoArr.randomElement()?.largeImageURL
+                    ImageHelper.shared.getImage(url: imageURL!) { (result) in
+                        DispatchQueue.main.async {
+                            switch result {
+                            case .failure(let error):
+                                print(error)
+                            case .success(let cityImage):
+                                self.cityImage = cityImage
+                                self.weatherIconImageView.image = cityImage
+                            }
+                        }
+                    }
                 }
             }
         }
