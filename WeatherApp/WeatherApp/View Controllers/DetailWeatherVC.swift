@@ -9,7 +9,31 @@
 import UIKit
 
 class DetailWeatherVC: UIViewController {
-
+    //MARK: Properties
+    var cityName: String!
+    var dayForecast: DayForecast!
+    var timezone: String!
+    
+    lazy var topLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        return label
+    }()
+    
+    lazy var weatherIconImageView: UIImageView = {
+        let imageview = UIImageView()
+        return imageview
+    }()
+    
+    lazy var weatherDetailsTextView: UITextView = {
+        let tv = UITextView()
+        tv.textAlignment = .left
+        tv.font = .systemFont(ofSize: 15)
+        tv.isEditable = false
+        return tv
+    }()
+    
+    //MARK: LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
 
