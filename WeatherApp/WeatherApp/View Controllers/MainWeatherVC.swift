@@ -193,7 +193,13 @@ extension MainWeatherVC: UICollectionViewDataSource, UICollectionViewDelegate, U
         return cell
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailVC = DetailWeatherVC()
+        detailVC.cityName = self.cityAndForecast?.name
+        detailVC.dayForecast = self.dailyForecast[indexPath.row]
+        detailVC.timezone = self.cityAndForecast?.cityInfo.timezone
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
 }
 
 //MARK: SearchBar Delegate
