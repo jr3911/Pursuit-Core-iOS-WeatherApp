@@ -93,7 +93,9 @@ class DetailWeatherVC: UIViewController {
             weatherIconImageView.image = UIImage(named: "pcloudy")
         }
         
-        PhotoHitsAPIClient.manager.getPhotoHits(searchTerm: cityName!) { (result) in
+        let formattedCityName = cityName!.replacingOccurrences(of: " ", with: "")
+        
+        PhotoHitsAPIClient.manager.getPhotoHits(searchTerm: formattedCityName) { (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .failure(let error):
