@@ -21,6 +21,8 @@
 		08B23CD4234FCBB800033075 /* PersistenceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B23CD3234FCBB800033075 /* PersistenceHelper.swift */; };
 		08F7DD97235781E800DFE9BA /* PhotoHits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F7DD96235781E800DFE9BA /* PhotoHits.swift */; };
 		08F7DD99235797B600DFE9BA /* PhotoHitsAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F7DD98235797B600DFE9BA /* PhotoHitsAPIClient.swift */; };
+		08F7DD9B2357ADFF00DFE9BA /* FavoritePhotosPersistenceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F7DD9A2357ADFF00DFE9BA /* FavoritePhotosPersistenceHelper.swift */; };
+		08F7DD9D2357C3EE00DFE9BA /* FavoritePhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F7DD9C2357C3EE00DFE9BA /* FavoritePhotosCollectionViewCell.swift */; };
 		548CE052234D33B500B5177D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548CE051234D33B500B5177D /* AppDelegate.swift */; };
 		548CE054234D33B500B5177D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548CE053234D33B500B5177D /* SceneDelegate.swift */; };
 		548CE05E234D33B600B5177D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 548CE05C234D33B600B5177D /* LaunchScreen.storyboard */; };
@@ -43,6 +45,8 @@
 		08B23CD3234FCBB800033075 /* PersistenceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceHelper.swift; sourceTree = "<group>"; };
 		08F7DD96235781E800DFE9BA /* PhotoHits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoHits.swift; sourceTree = "<group>"; };
 		08F7DD98235797B600DFE9BA /* PhotoHitsAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoHitsAPIClient.swift; sourceTree = "<group>"; };
+		08F7DD9A2357ADFF00DFE9BA /* FavoritePhotosPersistenceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePhotosPersistenceHelper.swift; sourceTree = "<group>"; };
+		08F7DD9C2357C3EE00DFE9BA /* FavoritePhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		548CE04E234D33B500B5177D /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		548CE051234D33B500B5177D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		548CE053234D33B500B5177D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -102,6 +106,7 @@
 			children = (
 				08B23CC1234FC49500033075 /* WeatherCollectionViewCell.swift */,
 				08B23CC2234FC49500033075 /* WeatherCollectionViewCell.xib */,
+				08F7DD9C2357C3EE00DFE9BA /* FavoritePhotosCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -119,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				08B23CD3234FCBB800033075 /* PersistenceHelper.swift */,
+				08F7DD9A2357ADFF00DFE9BA /* FavoritePhotosPersistenceHelper.swift */,
 			);
 			path = "Persistence Files";
 			sourceTree = "<group>";
@@ -230,11 +236,13 @@
 				0891D01B234FDB400047C91C /* ForecastAPIClient.swift in Sources */,
 				08B23CC8234FC66500033075 /* Secrets.swift in Sources */,
 				08B23CCD234FCB6F00033075 /* NetworkHelper.swift in Sources */,
+				08F7DD9B2357ADFF00DFE9BA /* FavoritePhotosPersistenceHelper.swift in Sources */,
 				08B23CBB234FC42100033075 /* MainWeatherVC.swift in Sources */,
 				548CE066234D33E600B5177D /* ZipCodeHelper.swift in Sources */,
 				08B23CCB234FC6C400033075 /* City.swift in Sources */,
 				548CE052234D33B500B5177D /* AppDelegate.swift in Sources */,
 				08F7DD97235781E800DFE9BA /* PhotoHits.swift in Sources */,
+				08F7DD9D2357C3EE00DFE9BA /* FavoritePhotosCollectionViewCell.swift in Sources */,
 				08B23CBF234FC44400033075 /* FavoriteImagesVC.swift in Sources */,
 				08B23CD1234FCB9800033075 /* AppError.swift in Sources */,
 				548CE054234D33B500B5177D /* SceneDelegate.swift in Sources */,
