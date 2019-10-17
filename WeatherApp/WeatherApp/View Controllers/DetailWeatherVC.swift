@@ -93,23 +93,22 @@ class DetailWeatherVC: UIViewController {
             weatherIconImageView.image = UIImage(named: "pcloudy")
         }
         
-        let formattedCityName = cityName!.replacingOccurrences(of: " ", with: "")
-        
-        PhotoHitsAPIClient.manager.getPhotoHits(searchTerm: formattedCityName) { (result) in
+        PhotoHitsAPIClient.manager.getPhotoHits(searchTerm: cityName) { (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .failure(let error):
                     print(error)
                 case .success(let photoArr):
-                    let imageURL = photoArr.randomElement()?.largeImageURL
-                    ImageHelper.shared.getImage(url: imageURL!) { (result) in
-                        DispatchQueue.main.async {
-                            switch result {
-                            case .failure(let error):
-                                print(error)
-                            case .success(let cityImage):
-                                self.cityImage = cityImage
-                                self.weatherIconImageView.image = cityImage
+                    if let imageURL = photoArr.randomElement()?.largeImageURL {
+                        ImageHelper.shared.getImage(url: imageURL) { (result) in
+                            DispatchQueue.main.async {
+                                switch result {
+                                case .failure(let error):
+                                    print(error)
+                                case .success(let cityImage):
+                                    self.cityImage = cityImage
+                                    self.weatherIconImageView.image = cityImage
+                                }
                             }
                         }
                     }

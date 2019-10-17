@@ -13,7 +13,9 @@ class PhotoHitsAPIClient {
     static let manager = PhotoHitsAPIClient()
     
     func getPhotoHits(searchTerm: String, completionHandler: @escaping (Result<[Photo], AppError>) -> () ) {
-        let urlString = "https://pixabay.com/api/?key=\(Secrets().pixabayAPIKey)&q=\(searchTerm)&image_type=photo"
+        let formattedSearchTerm = searchTerm.replacingOccurrences(of: " ", with: "")
+    
+        let urlString = "https://pixabay.com/api/?key=\(Secrets().pixabayAPIKey)&q=\(formattedSearchTerm)&image_type=photo"
         guard let url = URL(string: urlString) else {
             completionHandler(.failure(.badURL))
             return
