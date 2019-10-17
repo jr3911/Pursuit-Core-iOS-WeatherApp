@@ -115,4 +115,23 @@ class WeatherAppTests: XCTestCase {
         
     }
     
+    func testFileManager() {
+        guard let cloudPhotoPNGData = UIImage(named: "cloudy")?.pngData() else {
+            XCTFail("Could not convert image to pngData")
+            return
+        }
+        
+        var favPhotosAlbum = [Data]()
+        
+        do {
+            try FavoritePhotoPersistenceHelper.manager.save(newPhotoData: cloudPhotoPNGData)
+            favPhotosAlbum = try FavoritePhotoPersistenceHelper.manager.getFavoritePhotosData()
+        } catch {
+            XCTFail("Could not save pngData to File Manager")
+        }
+        
+        
+        
+        XCTAssert(favPhotosAlbum.count > 0, "File Manager could not save pngData for retrieval")
+    }
 }
