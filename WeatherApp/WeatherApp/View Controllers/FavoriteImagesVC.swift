@@ -72,6 +72,7 @@ class FavoriteImagesVC: UIViewController {
     
 }
 
+//MARK: CollectionView Methods
 extension FavoriteImagesVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return favoritePhotosData.count
