@@ -45,16 +45,16 @@ class DetailWeatherVC: UIViewController {
     
     //MARK: Private Functions
     @objc func saveCityImage() {
-        let alert = UIAlertController(title: "Saved", message: "Image saved to Favorites", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         if let photoData = cityImage?.pngData() {
             do {
                 try FavoritePhotoPersistenceHelper.manager.save(newPhotoData: photoData)
+                let alert = UIAlertController(title: "Saved", message: "Image saved to Favorites", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                present(alert, animated: true)
             } catch {
                 print(error)
             }
         }
-        present(alert, animated: true)
     }
     
     //MARK: AddSubviews and Constraints
