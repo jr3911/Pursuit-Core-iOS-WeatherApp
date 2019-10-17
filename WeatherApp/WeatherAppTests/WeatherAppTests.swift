@@ -78,4 +78,41 @@ class WeatherAppTests: XCTestCase {
         XCTAssert(cityName == "Chicago" && dailyForecast.count >= 5, "City name: \(cityName), dailyForecast.count: \(dailyForecast.count)")
     }
     
+    func testPhotoHitsAPIClient() {
+        let searchTerm = "NewYork"
+        var photoData: Data?
+        
+        let expectation = XCTestExpectation(description: "Get photo results for search term")
+        PhotoHitsAPIClient.manager.getPhotoHits(searchTerm: searchTerm) { (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure:
+                    XCTFail("Could not get photo objects from given searchterm")
+                case .success(let photoArr):
+                    guard let randomPhotoImageURL = photoArr.randomElement()?.largeImageURL else {
+                        XCTFail("Could not get a random Photo object")
+                        return
+                    }
+                    ImageHelper.shared.getImage(url: randomPhotoImageURL) { (result) in
+                        DispatchQueue.main.async {
+                            switch result {
+                            case .failure:
+                                XCTFail("Could not get url for random Photo object")
+                            case .success(let photoUIImage):
+                                let photoPNGData = photoUIImage.pngData()
+                                photoData = photoPNGData
+                                expectation.fulfill()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        wait(for: [expectation], timeout: 10)
+        
+        XCTAssert(photoData != nil, "No photoDataReceived")
+        
+    }
+    
 }
